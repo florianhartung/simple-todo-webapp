@@ -1,0 +1,66 @@
+# Todo list example using axum, leptos, tailwindcss and sqlite
+A simple todo list project.
+The user can add todos, mark them as done/undone and remove them.
+
+This project is based on https://github.com/leptos-rs/start-axum.
+See below for information on how to run this project.
+
+
+## How to run
+Make sure to install cargo-leptos to run the web server
+```bash
+cargo install cargo-leptos
+```
+Also, you may need to install the `tailwindcss` npm package (is this needed?).
+
+Then run the server with
+```bash
+cargo leptos watch
+```
+
+## Installing Additional Tools
+
+By default, `cargo-leptos` uses `nightly` Rust, `cargo-generate`, and `sass`. If you run into any trouble, you may need to install one or more of these tools.
+
+1. `rustup toolchain install nightly --allow-downgrade` - make sure you have Rust nightly
+2. `rustup target add wasm32-unknown-unknown` - add the ability to compile Rust to WebAssembly
+
+## Compiling for Release
+```bash
+cargo leptos build --release
+```
+
+Will generate your server binary in target/server/release and your site package in target/site
+
+## Testing Your Project
+```bash
+cargo leptos end-to-end
+```
+
+```bash
+cargo leptos end-to-end --release
+```
+
+Cargo-leptos uses Playwright as the end-to-end test tool.  
+Tests are located in end2end/tests directory.
+
+## Executing a Server on a Remote Machine Without the Toolchain
+After running a `cargo leptos build --release` the minimum files needed are:
+
+1. The server binary located in `target/server/release`
+2. The `site` directory and all files within located in `target/site`
+
+Copy these files to your remote server. The directory structure should be:
+```text
+simple-fullstack
+site/
+```
+Set the following environment variables (updating for your project as needed):
+```text
+LEPTOS_OUTPUT_NAME="simple-fullstack"
+LEPTOS_SITE_ROOT="site"
+LEPTOS_SITE_PKG_DIR="pkg"
+LEPTOS_SITE_ADDR="127.0.0.1:3000"
+LEPTOS_RELOAD_PORT="3001"
+```
+Finally, run the server binary.
